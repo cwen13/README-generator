@@ -44,7 +44,7 @@ const questions = [
   {
     type:"input",
     message:"What is you github username?",
-    name:"githubUser",
+    name:"github",
   },
   {
     type:"input",
@@ -59,10 +59,10 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
+function writeToFile(fileName) {
   inquirer.prompt(questions)
     .then((data) => {
-      fs.writeFile(fileName, genMarkdown.generateMarkdown(data), (err) =>
+      fs.writeFile(fileName, genMarkdown(data), (err) =>
 	err ? console.log(err) : console.log("README.md written!")
       )
     });
@@ -72,7 +72,7 @@ function writeToFile(fileName, data) {
 function init() {
   // ask questions
   // construct into data object
-  writeToFile(`${title}-README.md`, data);
+  writeToFile(`THE-README.md`);
 
 }
 

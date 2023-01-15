@@ -19,32 +19,37 @@ function renderLicenseBadge(license) {
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
 
+  let baseUrl ="https://choosealicense.com/licenses/"
+  let license_ = license.replace(" ","_");
+  const licenses = {
+    Apache:"apache-2.0/",
+    MIT: "mit/",
+    BSD_2:"bsd-2-clause/",
+    BSD_3:"bsd-3-clause-clear/",
+    Boost: "bsl-1.0/",
+    CC: "cc-by-4.0/",
+    Eclipse_Public: "epl-2.0/",
+    GNU_Affero: "agpl-3.0/",
+    GNU_General: "gpl-3.0/",
+    GNU_Lesser: "lgpl-3.0/",
+    Monzilla: "mpl-2.0/",
+    The_Unlicense:"unlicense/",
+  };
+  let licensePath = licenses[license_];
+  
+  return `${baseUrl}${licensePath}`
+  
 }
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   if (license.toLowerCase() === "none") return "";
-  
-  let baseUrl ="https://choosealicense.com/licenses/"
-  const licences = {
-    Apache:"apache-2.0/",
-    MIT: "mit/",
-    BSD 2:"bsd-2-clause/",
-    BSD 3:"bsd-3-clause-clear/",
-    Boost: "bsl-1.0/",
-    CC: "cc-by-4.0/",
-    Eclipse Public:
-    GNU Affero: "agpl-3.0/",
-    GNU General: "gpl-3.0/",
-    GNU Lesser: "lgpl-3.0/",
-    Monzilla: "mpl-2.0/",
-    The Unlicense:"unlicense/",
-  };
-  
-  let lSeciton = "## License\n\n";
+
+  let licenseLink = renderLicenseLink(license);
+  let lSection = "## License\n\n";
   lSection += `This application is covered under the following license:
-[${license}](${baseUrl}${licenses[$license}})
+[${license}](${licenseLink})
 
 `;
   
@@ -96,7 +101,7 @@ ${data.contribute}
     readme += "\n";
     sections.push(`## Testing
 
-${data.test}
+${data.testing}
 
 `);
   }
@@ -107,9 +112,11 @@ ${data.test}
     sections.push(renderLicenseSection(data.license));
   }
   readme += `[Questions](#questions)`;
-  readme += "\n";
+  readme += "\n\n";
 
-  secitons.forEach((section) => readme += section;);
+  sections.forEach((section) =>{
+    readme += section;
+  });
 
   readme += `## Questions
 
