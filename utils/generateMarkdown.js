@@ -6,13 +6,11 @@ function renderLicenseBadge(license) {
   let label = license;
   if (license = "None") label = null;
   const format = {
-    lable: label ? "License" : "No License",
-    message: message ? license : "",
+    label: label ? "License" : "No License",
+    message: license,
     color: "green",
   }
-  const svg = makeBadge(format)
-  
-  return badge ? `https://img.shields.io/github/license/${user}/${repo}` : " ";
+  return makeBadge(format)
 }
 
 // TODO: Create a function that returns the license link
@@ -52,13 +50,14 @@ function renderLicenseSection(license) {
 [${license}](${licenseLink})
 
 `;
-  
-  
+  return lSection;
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
+  let badge = renderLicenseBadge(data["license"]);
   let readme = `# ${data.title}
+${badge}
 
 ## Description
 
@@ -71,7 +70,7 @@ ${data.description}
   
   if (data.install.toLowerCase() !== "none") {
     readme += `[Installation](#installation)`;
-    readme += "\n";
+    readme += "\n\n";
     sections.push(`## Installation
 
 ${data.install}
@@ -80,7 +79,7 @@ ${data.install}
   }
   if  (data.usage.toLowerCase() !== "none") {
     readme += `[Usage](#usage)`;
-    readme += "\n";
+    readme += "\n\n";
     sections.push(`## Usage
 
 ${data.usage}
@@ -89,7 +88,7 @@ ${data.usage}
   }
   if  (data.contribute.toLowerCase() !== "none") {
     readme += `[Contribute](#contribute)`;
-    readme += "\n";
+    readme += "\n\n";
     sections.push(`## Contribution
 
 ${data.contribute}
@@ -98,7 +97,7 @@ ${data.contribute}
   }
   if  (data.testing.toLowerCase() !== "none") {
     readme += `[Testing](#testing)`;
-    readme += "\n";
+    readme += "\n\n";
     sections.push(`## Testing
 
 ${data.testing}
@@ -107,7 +106,7 @@ ${data.testing}
   }
   if (data.license.toLowerCase() !== "none") {
     readme += `[License](#license)`;
-    readme += "\n";
+    readme += "\n\n";
     
     sections.push(renderLicenseSection(data.license));
   }
