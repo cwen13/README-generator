@@ -87,7 +87,7 @@ ${data.usage}
   if  (data.contribute.toLowerCase() !== "none") {
     readme += `[Contribute](#contribute)`;
     readme += "\n\n";
-    sections.push(`## Contribution
+    sections.push(`## Contribute
 
 ${data.contribute}
 
