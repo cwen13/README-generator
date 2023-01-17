@@ -3,10 +3,8 @@ const { makeBadge, ValidationError} = require("badge-maker");
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
-  let label = license;
-  if (license = "None") label = null;
   const format = {
-    label: label ? "License" : "No License",
+    label: "License",
     message: license,
     color: "green",
   }
